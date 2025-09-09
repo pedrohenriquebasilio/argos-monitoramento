@@ -71,10 +71,74 @@ class PhotoApplicationServiceTest {
     }
 
     @Test
+    void list_ok() {
+        var p = new Photo(); p.setId(1L); p.setAlbum(albumWithId(2L)); p.setTitle("img");
+        when(photos.findAll(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(p)));
+
+        var page = service.list(0, 10);
+
+        assertThat(page.getTotalElements()).isEqualTo(1);
+        assertThat(page.getContent().get(0).albumId()).isEqualTo(2L);
+    }
+
+    @Test
     void update_notFound_erro() {
         when(photos.findById(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.update(99L, new PhotoUpdateRequest("t", null, null)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Photo não encontrada");
+    }
+
+    @Test
+    void update_ok() {
+        var p = new Photo(); p.setId(1L); p.setAlbum(albumWithId(2L)); p.setTitle("Old");
+        when(photos.findById(1L)).thenReturn(Optional.of(p));
+        when(photos.save(any(Photo.class))).thenAnswer(i -> i.getArgument(0));
+
+        var out = service.update(1L, new PhotoUpdateRequest("New", "url", "thumb"));
+
+        assertThat(out.title()).isEqualTo("New");
+        assertThat(out.url()).isEqualTo("url");
+        assertThat(out.thumbnailUrl()).isEqualTo("thumb");
+    }
+
+    @Test
+    void get_ok() {
+        var p = new Photo(); p.setId(1L); p.setAlbum(albumWithId(2L)); p.setTitle("img");
+        when(photos.findById(1L)).thenReturn(Optional.of(p));
+
+        var out = service.get(1L);
+
+        assertThat(out.id()).isEqualTo(1L);
+        assertThat(out.albumId()).isEqualTo(2L);
+    }
+
+    @Test
+    void get_notFound_erro() {
+        when(photos.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.get(99L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Photo não encontrada");
+    }
+
+    @Test
+    void delete_ok() {
+        var p = new Photo(); p.setId(1L);
+        when(photos.findById(1L)).thenReturn(Optional.of(p));
+
+        service.delete(1L);
+
+        verify(photos).delete(p);
+    }
+
+    @Test
+    void delete_notFound_erro() {
+        when(photos.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.delete(99L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Photo não encontrada");
     }
