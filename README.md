@@ -77,7 +77,7 @@ Consulte o Swagger para detalhes de cada endpoint, parâmetros e exemplos de uso
 
 ## Deploy Online
 
-O projeto pode ser testado online por até **duas semanas (14 dias)** após o deploy. Para acessar a API hospedada, utilize:
+O projeto pode ser testado online por até **duas semanas (14 dias)** . Para acessar a API hospedada, utilize:
 
 ```bash
 curl https://plannfly-teste.tidl9u.easypanel.host/
