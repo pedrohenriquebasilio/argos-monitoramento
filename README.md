@@ -80,7 +80,7 @@ Consulte o Swagger para detalhes de cada endpoint, parâmetros e exemplos de uso
 O projeto pode ser testado online por até **duas semanas (14 dias)** após o deploy. Para acessar a API hospedada, utilize:
 
 ```bash
-curl https://<SUA-URL-DEPLOY>.vercel.app/api/posts
+curl https://plannfly-teste.tidl9u.easypanel.host/
 ```
 
 > **Banco NeonDB:**
@@ -90,8 +90,9 @@ curl https://<SUA-URL-DEPLOY>.vercel.app/api/posts
 
 A documentação Swagger estará disponível online (se hospedado) por até 14 dias:
 
-- [https://<SUA-URL-DEPLOY>.vercel.app/swagger-ui.html](https://<SUA-URL-DEPLOY>.vercel.app/swagger-ui.html)
-
+```
+- http://plannfly-teste.tidl9u.easypanel.host/swagger-ui/index.html#/
+```
 ## Possíveis Melhorias Futuras
 
 - Implementar refresh token para autenticação.
