@@ -91,7 +91,7 @@ curl https://plannfly-teste.tidl9u.easypanel.host/
 A documentação Swagger estará disponível online (se hospedado) por até 14 dias:
 
 ```
-- http://plannfly-teste.tidl9u.easypanel.host/swagger-ui/index.html#/
+- https://plannfly-teste.tidl9u.easypanel.host/swagger-ui/index.html#/
 ```
 ## Possíveis Melhorias Futuras
 
